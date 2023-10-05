@@ -7,13 +7,20 @@ import 'package:total_pos_waiter/models/settings.dart';
 class AuthService {
   Future<(AuthResponseDTO?, ErrorResponse?)> login(
       String username, String password) async {
-    final response = await http.post(
-        Uri.http(Settings.serverHost, '/auth/login'),
-        body: {'username': username, 'password': password});
-    final jsonResponse = jsonDecode(response.body);
-    if (response.statusCode != 200) {
-      return (null, ErrorResponse.fromJson(jsonResponse));
+    try {
+      final response = await http.post(
+          Uri.http(Settings.serverHost, '/auth/login'),
+          body: {'username': username, 'password': password});
+      final jsonResponse = jsonDecode(response.body);
+      if (response.statusCode != 200) {
+        return (null, ErrorResponse.fromJson(jsonResponse));
+      }
+      return (AuthResponseDTO.fromJson(jsonResponse), null);
+    } catch (e) {
+      return (
+        null,
+        ErrorResponse(description: e.toString(), details: '', error: '')
+      );
     }
-    return (AuthResponseDTO.fromJson(jsonResponse), null);
   }
 }

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart' hide Table;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:total_pos_waiter/providers/tables_state_provider.dart';
-import 'package:total_pos_waiter/routes/ticket_route/ticket_route.dart';
-import 'package:total_pos_waiter/routes/ticket_route/ticket_route_state_provider.dart';
 import 'package:total_pos_waiter/widgets/panel.dart';
 import 'package:total_pos_waiter/widgets/table.dart';
 

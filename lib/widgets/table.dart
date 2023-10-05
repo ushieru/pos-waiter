@@ -31,7 +31,6 @@ class Table extends ConsumerWidget {
         height: double.maxFinite,
         child: ElevatedButton(
             onPressed: () {
-              print(table.ticket);
               ticketMethods
                   .addTicket(table.ticket!)
                   .then((_) => context.push(TicketRoute.routeName));

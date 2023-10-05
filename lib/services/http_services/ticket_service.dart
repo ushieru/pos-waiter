@@ -83,7 +83,6 @@ class TicketService {
               Settings.serverHost, '/tickets/$ticketId/products/$productId'),
           headers: {'Authorization': 'Bearer $jwt'});
       final jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
       return Ticket.fromJson(jsonResponse);
     } catch (e) {
       log('Error: Class TicketService => Method deleteProductToTicket');

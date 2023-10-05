@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:total_pos_waiter/providers/categories_state_provider.dart';
-import 'package:total_pos_waiter/routes/tables_route.dart';
 import 'package:total_pos_waiter/routes/ticket_route/ticket_route_state_provider.dart';
+import 'package:total_pos_waiter/widgets/dialogs/ticket_details_fullscreen_dialog.dart';
 import 'package:total_pos_waiter/widgets/panel.dart';
 
 class TicketRoute extends ConsumerWidget {
@@ -18,6 +17,7 @@ class TicketRoute extends ConsumerWidget {
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Column(children: [
+            Panel(child: Text('Ticket #${state.ticket?.id}')),
             Panel(
                 child: SizedBox(
               width: double.maxFinite,
@@ -49,23 +49,40 @@ class TicketRoute extends ConsumerWidget {
                                       Align(
                                           alignment: Alignment.centerRight,
                                           child: FilledButton(
-                                            onPressed: () {},
+                                            onPressed: () =>
+                                                methods.addProduct(product),
                                             child: const Text('Agregar'),
                                           ))
                                     ]))))
                         .toList())),
             Panel(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                  const Text('Total'),
+                  Text('\$${state.ticket?.total}')
+                ])),
+            Panel(
                 child: Row(children: [
               Expanded(
-                  child: ElevatedButton(
-                      onPressed: () {
-                        context.pop();
-                      },
-                      child: const Text('Cancelar'))),
+                  child: state.ticket?.ticketProducts.isEmpty ?? true
+                      ? ElevatedButton(
+                          onPressed: () {
+                            methods.deleteTicket().then((isOk) {
+                              if (!isOk) return;
+                              context.pop();
+                            });
+                          },
+                          child: const Text('Cancelar'))
+                      : ElevatedButton(
+                          onPressed: () =>
+                              showTicketDetailsFullScreenDialog(context),
+                          child: const Text('Detalles'))),
               const SizedBox(width: 20),
               Expanded(
                   child: FilledButton(
-                      onPressed: () {}, child: const Text('Aceptar'))),
+                      onPressed: () => context.pop(),
+                      child: const Text('Aceptar'))),
             ])),
           ]),
         ));

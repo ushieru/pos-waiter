@@ -27,8 +27,8 @@ class Table extends Model {
       name: json['name'],
       posX: json['pos_x'],
       posY: json['pos_y'],
-      account: json['account']['id'] != 0 ? Account.fromJson(json) : null,
-      ticket: json['ticket']['id'] != 0 ? Ticket.fromJson(json) : null,
+      account: json['account']['id'] != 0 ? Account.fromJson(json['account']) : null,
+      ticket: json['ticket']['id'] != 0 ? Ticket.fromJson(json['ticket']) : null,
     );
   }
 

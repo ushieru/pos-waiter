@@ -11,4 +11,12 @@ class TablesService {
     final jsonList = jsonDecode(response.body) as List<dynamic>;
     return jsonList.map((json) => Table.fromJson(json)).toList();
   }
+
+  Future<Table> createTableTicket(String jwt, int tableId) async {
+    final response = await http.post(
+        Uri.http(Settings.serverHost, '/tables/$tableId/ticket'),
+        headers: {'Authorization': 'Bearer $jwt'});
+    final jsonResponse = jsonDecode(response.body);
+    return Table.fromJson(jsonResponse);
+  }
 }

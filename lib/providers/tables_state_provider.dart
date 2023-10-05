@@ -7,14 +7,15 @@ import 'package:total_pos_waiter/services/http_services/table_service.dart';
 import 'package:total_pos_waiter/utils/rotate_2d_matrix.dart';
 
 final tablesStateProvider =
-    StateNotifierProvider<TablesStateProvider, List<Table?>>(
-        (ref) => TablesStateProvider(ref.read(authStateProvider)));
+    StateNotifierProvider<TablesStateProvider, List<Table?>>((ref) =>
+        TablesStateProvider(
+            ref.read(authStateProvider)));
 
 class TablesStateProvider extends StateNotifier<List<Table?>> {
   TablesStateProvider(this.authState) : super([]) {
     getTables();
     Timer.periodic(const Duration(seconds: 5), (timer) {
-      // getTables();
+      getTables();
     });
   }
 
@@ -36,5 +37,12 @@ class TablesStateProvider extends StateNotifier<List<Table?>> {
       }
     }
     state = linearList;
+  }
+
+  Future<Table> createTicket(Table table) async {
+    final tableWithTicket =
+        await _tablesService.createTableTicket(authState.jwtToken, table.id);
+    getTables();
+    return tableWithTicket;
   }
 }

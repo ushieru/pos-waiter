@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Table;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:total_pos_waiter/providers/tables_state_provider.dart';
 import 'package:total_pos_waiter/routes/ticket_route/ticket_route.dart';
+import 'package:total_pos_waiter/routes/ticket_route/ticket_route_state_provider.dart';
 import 'package:total_pos_waiter/widgets/panel.dart';
+import 'package:total_pos_waiter/widgets/table.dart';
 
 class TablesRoute extends ConsumerWidget {
   static const String routeName = '/tables';
@@ -32,16 +34,7 @@ class TablesRoute extends ConsumerWidget {
                                             color: Colors.grey.shade700
                                                 .withAlpha(100),
                                             border: Border.all()))
-                                    : SizedBox(
-                                        height: double.maxFinite,
-                                        child: ElevatedButton(
-                                            onPressed: () {
-                                              context
-                                                  .push(TicketRoute.routeName);
-                                            },
-                                            child: Text(
-                                                tables[(i * 5) + j]!.name)),
-                                      ))
+                                    : Table(table: tables[(i * 5) + j]!))
                         ]))
                     ]))
         ])));

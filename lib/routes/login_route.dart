@@ -3,10 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:total_pos_waiter/providers/auth_state_provider.dart';
 import 'package:total_pos_waiter/routes/tables_route.dart';
+import 'package:total_pos_waiter/widgets/dialogs/config_dialog.dart';
 import 'package:total_pos_waiter/widgets/panel.dart';
 
 class LoginRoute extends ConsumerWidget {
-  static const String routeName = '/';
+  static const String routeName = '/login';
   LoginRoute({super.key});
 
   final userController = TextEditingController();
@@ -31,7 +32,9 @@ class LoginRoute extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(right: 10, top: 5),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
+                IconButton(
+                    onPressed: () => showConfigDialog(context),
+                    icon: const Icon(Icons.settings)),
               ]),
             ),
             const Expanded(child: SizedBox()),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:total_pos_waiter/routes/loading_route.dart';
 import 'package:total_pos_waiter/routes/login_route.dart';
 import 'package:total_pos_waiter/routes/tables_route.dart';
 import 'package:total_pos_waiter/routes/ticket_route/ticket_route.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
 }
 
 final _router = GoRouter(routes: [
+  GoRoute(
+      path: LoadingRoute.routeName,
+      builder: (context, state) => const LoadingRoute()),
   GoRoute(
       path: LoginRoute.routeName, builder: (context, state) => LoginRoute()),
   GoRoute(
